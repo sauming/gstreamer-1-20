@@ -51,6 +51,12 @@
     <ClCompile Include="..\..\..\libs\gst\base\gsttypefindhelper.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\libs\gst\base\gstdataqueue.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libs\gst\base\gstqueuearray.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\libs\gst\base\gstadapter.h">
@@ -98,5 +104,14 @@
     <ClInclude Include="..\..\..\libs\gst\base\gsttypefindhelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\libs\gst\base\gstqueuearray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libs\gst\base\gstdataqueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

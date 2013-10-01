@@ -10,77 +10,18 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="..\..\..\gst\gstmarshal.list">
-      <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">set prefix=gst_marshal
-set relativedir=%(RelativeDir)
-set filename=%(Filename)
-
-$(GstGenMarshal)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(RelativeDir)%(Filename).c;%(RelativeDir)%(Filename).h</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">set prefix=gst_marshal
-set relativedir=%(RelativeDir)
-set filename=%(Filename)
-
-$(GstGenMarshal)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(RelativeDir)%(Filename).c;%(RelativeDir)%(Filename).h</Outputs>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\gst\parse\grammar.y">
-      <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">win_bison -d -v -ppriv_gst_parse_yy $(GstProjectRoot)gst\parse\grammar.y -o $(GstProjectRoot)gst\parse\grammar.tab.c
-win_flex  -Ppriv_gst_parse_yy -o$(GstProjectRoot)gst\parse\lex.priv_gst_parse_yy.c $(GstProjectRoot)gst\parse\parse.l
-</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">win_bison -d -v -ppriv_gst_parse_yy $(GstProjectRoot)gst\parse\grammar.y -o $(GstProjectRoot)gst\parse\grammar.tab.c
-win_flex  -Ppriv_gst_parse_yy -o$(GstProjectRoot)gst\parse\lex.priv_gst_parse_yy.c $(GstProjectRoot)gst\parse\parse.l
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(GstProjectRoot)gst\parse\lex.priv_gst_parse_yy.c;$(GstProjectRoot)gst\parse\grammar.tab.c;$(GstProjectRoot)gst\parse\grammar.tab.h;%(Outputs)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(GstProjectRoot)gst\parse\lex.priv_gst_parse_yy.c;$(GstProjectRoot)gst\parse\grammar.tab.c;$(GstProjectRoot)gst\parse\grammar.tab.h;%(Outputs)</Outputs>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="..\..\common\gstconfig.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy /y %(Identity) $(GstProjectRoot)gst</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy /y %(Identity) $(GstProjectRoot)gst</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(GstProjectRoot)gst\%(Filename).%(Extension)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(GstProjectRoot)gst\%(Filename).%(Extension)</Outputs>
-    </CustomBuild>
-    <CustomBuild Include="..\..\common\gstenumtypes.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy /y %(Identity) $(GstProjectRoot)gst</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy /y %(Identity) $(GstProjectRoot)gst</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(GstProjectRoot)gst\%(Filename).%(Extension)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(GstProjectRoot)gst\%(Filename).%(Extension)</Outputs>
-    </CustomBuild>
-    <CustomBuild Include="..\..\common\gstversion.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy /y %(Identity) $(GstProjectRoot)gst</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy /y %(Identity) $(GstProjectRoot)gst</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(GstProjectRoot)gst\%(Filename).%(Extension)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(GstProjectRoot)gst\%(Filename).%(Extension)</Outputs>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="..\..\common\gstenumtypes.c">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy /y %(Identity) $(GstProjectRoot)gst</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy /y %(Identity) $(GstProjectRoot)gst</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(GstProjectRoot)gst\%(Filename).%(Extension)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(GstProjectRoot)gst\%(Filename).%(Extension)</Outputs>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F0025B10-A2E9-44EE-8668-4AE3AE1A2F9B}</ProjectGuid>
-    <RootNamespace>generated</RootNamespace>
+    <ProjectGuid>{BA2BBC92-CB88-4DC6-B7F6-6B401446AD04}</ProjectGuid>
+    <RootNamespace>gstprintf</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Utility</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Utility</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
@@ -97,11 +38,27 @@ win_flex  -Ppriv_gst_parse_yy -o$(GstProjectRoot)gst\parse\lex.priv_gst_parse_yy
     <Import Project="..\Common.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>$(ProjectName)-$(GstVersion)</TargetName>
+    <IntDir>..\Build\$(ProjectName)-$(Configuration)\</IntDir>
+    <ExecutablePath>$(GstPrefix)bin;$(GstPrefix)bin\flex;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(GstPrefix)include;$(GstPrefix)include\glib-2.0;$(GstPrefix)lib\glib-2.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(GstPrefix)lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetName>$(ProjectName)-$(GstVersion)</TargetName>
+    <IntDir>..\Build\$(ProjectName)-$(Configuration)\</IntDir>
+    <ExecutablePath>$(GstPrefix)bin;$(GstPrefix)bin\flex;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(GstPrefix)include;$(GstPrefix)include\glib-2.0;$(GstPrefix)lib\glib-2.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(GstPrefix)lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(GstProjectRoot);$(GstProjectRoot)libs;$(GstProjectRoot)win32\common\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -113,6 +70,7 @@ win_flex  -Ppriv_gst_parse_yy -o$(GstProjectRoot)gst\parse\lex.priv_gst_parse_yy
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(GstProjectRoot);$(GstProjectRoot)libs;$(GstProjectRoot)win32\common\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -120,6 +78,25 @@ win_flex  -Ppriv_gst_parse_yy -o$(GstProjectRoot)gst\parse\lex.priv_gst_parse_yy
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\gst\printf\asnprintf.c" />
+    <ClCompile Include="..\..\..\gst\printf\printf-args.c" />
+    <ClCompile Include="..\..\..\gst\printf\printf-extension.c" />
+    <ClCompile Include="..\..\..\gst\printf\printf-parse.c" />
+    <ClCompile Include="..\..\..\gst\printf\printf.c" />
+    <ClCompile Include="..\..\..\gst\printf\vasnprintf.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\gst\printf\gst-printf.h" />
+    <ClInclude Include="..\..\..\gst\printf\printf-args.h" />
+    <ClInclude Include="..\..\..\gst\printf\printf-extension.h" />
+    <ClInclude Include="..\..\..\gst\printf\printf-parse.h" />
+    <ClInclude Include="..\..\..\gst\printf\printf.h" />
+    <ClInclude Include="..\..\..\gst\printf\vasnprintf.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\zlib.redist.1.2.8.6\build\native\zlib.redist.targets" Condition="Exists('..\packages\zlib.redist.1.2.8.6\build\native\zlib.redist.targets')" />

@@ -74,7 +74,22 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\tools\gst-launch.c" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\zlib.redist.1.2.8.6\build\native\zlib.redist.targets" Condition="Exists('..\packages\zlib.redist.1.2.8.6\build\native\zlib.redist.targets')" />
+    <Import Project="..\packages\zlib.1.2.8.6\build\native\zlib.targets" Condition="Exists('..\packages\zlib.1.2.8.6\build\native\zlib.targets')" />
+    <Import Project="..\packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets" Condition="Exists('..\packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets')" />
+    <Import Project="..\packages\libiconv.1.14.0.11\build\native\libiconv.targets" Condition="Exists('..\packages\libiconv.1.14.0.11\build\native\libiconv.targets')" />
+    <Import Project="..\packages\libintl.redist.0.18.2.10\build\native\libintl.redist.targets" Condition="Exists('..\packages\libintl.redist.0.18.2.10\build\native\libintl.redist.targets')" />
+    <Import Project="..\packages\libintl.0.18.2.10\build\native\libintl.targets" Condition="Exists('..\packages\libintl.0.18.2.10\build\native\libintl.targets')" />
+    <Import Project="..\packages\libffi.redist.3.0.10.3\build\native\libffi.redist.targets" Condition="Exists('..\packages\libffi.redist.3.0.10.3\build\native\libffi.redist.targets')" />
+    <Import Project="..\packages\libffi.3.0.10.3\build\native\libffi.targets" Condition="Exists('..\packages\libffi.3.0.10.3\build\native\libffi.targets')" />
+    <Import Project="..\packages\glib.redist.2.36.2.11\build\native\glib.redist.targets" Condition="Exists('..\packages\glib.redist.2.36.2.11\build\native\glib.redist.targets')" />
+    <Import Project="..\packages\glib.2.36.2.11\build\native\glib.targets" Condition="Exists('..\packages\glib.2.36.2.11\build\native\glib.targets')" />
+    <Import Project="..\packages\libxml2.redist.2.7.8.7\build\native\libxml2.redist.targets" Condition="Exists('..\packages\libxml2.redist.2.7.8.7\build\native\libxml2.redist.targets')" />
+    <Import Project="..\packages\libxml2.2.7.8.7\build\native\libxml2.targets" Condition="Exists('..\packages\libxml2.2.7.8.7\build\native\libxml2.targets')" />
   </ImportGroup>
 </Project>

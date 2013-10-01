@@ -120,6 +120,7 @@ del $(GstDestInclude)gettext.h
     <ClInclude Include="..\..\..\gst\gst-i18n-app.h" />
     <ClInclude Include="..\..\..\gst\gst-i18n-lib.h" />
     <ClInclude Include="..\..\..\gst\gst.h" />
+    <ClInclude Include="..\..\..\gst\gstallocator.h" />
     <ClInclude Include="..\..\..\gst\gstatomicqueue.h" />
     <ClInclude Include="..\..\..\gst\gstbin.h" />
     <ClInclude Include="..\..\..\gst\gstbuffer.h" />
@@ -127,10 +128,12 @@ del $(GstDestInclude)gettext.h
     <ClInclude Include="..\..\..\gst\gstbufferpool.h" />
     <ClInclude Include="..\..\..\gst\gstbus.h" />
     <ClInclude Include="..\..\..\gst\gstcaps.h" />
+    <ClInclude Include="..\..\..\gst\gstcapsfeatures.h" />
     <ClInclude Include="..\..\..\gst\gstchildproxy.h" />
     <ClInclude Include="..\..\..\gst\gstclock.h" />
     <ClInclude Include="..\..\..\gst\gstcompat.h" />
     <ClInclude Include="..\..\..\gst\gstconfig.h" />
+    <ClInclude Include="..\..\..\gst\gstcontext.h" />
     <ClInclude Include="..\..\..\gst\gstcontrolbinding.h" />
     <ClInclude Include="..\..\..\gst\gstcontrolsource.h" />
     <ClInclude Include="..\..\..\gst\gstdatetime.h" />
@@ -143,8 +146,6 @@ del $(GstDestInclude)gettext.h
     <ClInclude Include="..\..\..\gst\gstevent.h" />
     <ClInclude Include="..\..\..\gst\gstformat.h" />
     <ClInclude Include="..\..\..\gst\gstghostpad.h" />
-    <ClInclude Include="..\..\..\gst\gstindex.h" />
-    <ClInclude Include="..\..\..\gst\gstindexfactory.h" />
     <ClInclude Include="..\..\..\gst\gstinfo.h" />
     <ClInclude Include="..\..\..\gst\gstiterator.h" />
     <ClInclude Include="..\..\..\gst\gstmacros.h" />
@@ -177,6 +178,8 @@ del $(GstDestInclude)gettext.h
     <ClInclude Include="..\..\..\gst\gsttagsetter.h" />
     <ClInclude Include="..\..\..\gst\gsttask.h" />
     <ClInclude Include="..\..\..\gst\gsttaskpool.h" />
+    <ClInclude Include="..\..\..\gst\gsttoc.h" />
+    <ClInclude Include="..\..\..\gst\gsttocsetter.h" />
     <ClInclude Include="..\..\..\gst\gsttrace.h" />
     <ClInclude Include="..\..\..\gst\gsttypefind.h" />
     <ClInclude Include="..\..\..\gst\gsttypefindfactory.h" />
@@ -192,6 +195,7 @@ del $(GstDestInclude)gettext.h
   <ItemGroup>
     <ClCompile Include="..\..\..\gst\glib-compat.c" />
     <ClCompile Include="..\..\..\gst\gst.c" />
+    <ClCompile Include="..\..\..\gst\gstallocator.c" />
     <ClCompile Include="..\..\..\gst\gstatomicqueue.c" />
     <ClCompile Include="..\..\..\gst\gstbin.c" />
     <ClCompile Include="..\..\..\gst\gstbuffer.c" />
@@ -199,8 +203,10 @@ del $(GstDestInclude)gettext.h
     <ClCompile Include="..\..\..\gst\gstbufferpool.c" />
     <ClCompile Include="..\..\..\gst\gstbus.c" />
     <ClCompile Include="..\..\..\gst\gstcaps.c" />
+    <ClCompile Include="..\..\..\gst\gstcapsfeatures.c" />
     <ClCompile Include="..\..\..\gst\gstchildproxy.c" />
     <ClCompile Include="..\..\..\gst\gstclock.c" />
+    <ClCompile Include="..\..\..\gst\gstcontext.c" />
     <ClCompile Include="..\..\..\gst\gstcontrolbinding.c" />
     <ClCompile Include="..\..\..\gst\gstcontrolsource.c" />
     <ClCompile Include="..\..\..\gst\gstdatetime.c" />
@@ -243,6 +249,8 @@ del $(GstDestInclude)gettext.h
     <ClCompile Include="..\..\..\gst\gsttagsetter.c" />
     <ClCompile Include="..\..\..\gst\gsttask.c" />
     <ClCompile Include="..\..\..\gst\gsttaskpool.c" />
+    <ClCompile Include="..\..\..\gst\gsttoc.c" />
+    <ClCompile Include="..\..\..\gst\gsttocsetter.c" />
     <ClCompile Include="..\..\..\gst\gsttrace.c" />
     <ClCompile Include="..\..\..\gst\gsttypefind.c" />
     <ClCompile Include="..\..\..\gst\gsttypefindfactory.c" />
@@ -256,8 +264,26 @@ del $(GstDestInclude)gettext.h
     <ProjectReference Include="..\generated\generated.vcxproj">
       <Project>{f0025b10-a2e9-44ee-8668-4ae3ae1a2f9b}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\gst-printf\gst-printf.vcxproj">
+      <Project>{ba2bbc92-cb88-4dc6-b7f6-6b401446ad04}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\zlib.redist.1.2.8.6\build\native\zlib.redist.targets" Condition="Exists('..\packages\zlib.redist.1.2.8.6\build\native\zlib.redist.targets')" />
+    <Import Project="..\packages\zlib.1.2.8.6\build\native\zlib.targets" Condition="Exists('..\packages\zlib.1.2.8.6\build\native\zlib.targets')" />
+    <Import Project="..\packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets" Condition="Exists('..\packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets')" />
+    <Import Project="..\packages\libiconv.1.14.0.11\build\native\libiconv.targets" Condition="Exists('..\packages\libiconv.1.14.0.11\build\native\libiconv.targets')" />
+    <Import Project="..\packages\libintl.redist.0.18.2.10\build\native\libintl.redist.targets" Condition="Exists('..\packages\libintl.redist.0.18.2.10\build\native\libintl.redist.targets')" />
+    <Import Project="..\packages\libintl.0.18.2.10\build\native\libintl.targets" Condition="Exists('..\packages\libintl.0.18.2.10\build\native\libintl.targets')" />
+    <Import Project="..\packages\libffi.redist.3.0.10.3\build\native\libffi.redist.targets" Condition="Exists('..\packages\libffi.redist.3.0.10.3\build\native\libffi.redist.targets')" />
+    <Import Project="..\packages\libffi.3.0.10.3\build\native\libffi.targets" Condition="Exists('..\packages\libffi.3.0.10.3\build\native\libffi.targets')" />
+    <Import Project="..\packages\glib.redist.2.36.2.11\build\native\glib.redist.targets" Condition="Exists('..\packages\glib.redist.2.36.2.11\build\native\glib.redist.targets')" />
+    <Import Project="..\packages\glib.2.36.2.11\build\native\glib.targets" Condition="Exists('..\packages\glib.2.36.2.11\build\native\glib.targets')" />
+    <Import Project="..\packages\libxml2.redist.2.7.8.7\build\native\libxml2.redist.targets" Condition="Exists('..\packages\libxml2.redist.2.7.8.7\build\native\libxml2.redist.targets')" />
+    <Import Project="..\packages\libxml2.2.7.8.7\build\native\libxml2.targets" Condition="Exists('..\packages\libxml2.2.7.8.7\build\native\libxml2.targets')" />
   </ImportGroup>
 </Project>

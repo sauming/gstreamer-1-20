@@ -2,15 +2,15 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <GstProjectRoot>..\..\..\</GstProjectRoot>
-    <GstPrefix>$(GstProjectRoot)..\..\vs10\$(PlatformName)\</GstPrefix>
+    <GstProjectRoot>C:\src\gstreamer-mod\gstreamer-1-20\</GstProjectRoot>
+    <GstPrefix>$(GstProjectRoot)$(PlatformName)\vs10\</GstPrefix>
     <BISON_PKGDATADIR>$(GstPrefix)bin\flex\data</BISON_PKGDATADIR>
-    <GstVersion>0.11</GstVersion>
+    <GstVersion>1.20</GstVersion>
     <GstDestInclude>$(GstPrefix)include\gstreamer-$(GstVersion)\gst\</GstDestInclude>
     <GstDestLib>$(GstPrefix)lib\</GstDestLib>
     <GstDestBin>$(GstPrefix)bin\</GstDestBin>
     <GstDestPlugins>$(GstPrefix)lib\gstreamer-$(GstVersion)\</GstDestPlugins>
-    <GstCommonDeps>glib-2.0.lib;gobject-2.0.lib;gthread-2.0.lib;gmodule-2.0.lib;Ws2_32.lib;intl.lib</GstCommonDeps>
+    <GstCommonDeps>glib-2.0.lib;gobject-2.0.lib;gthread-2.0.lib;gmodule-2.0.lib;Ws2_32.lib;libintl.lib</GstCommonDeps>
     <GstGenMarshal>glib-genmarshal &gt; NUL 2&gt; NUL
 if %errorlevel% == 9009 goto NOGLIBGENMARSHAL
 rem resets errorlevel to 0 because it is 1 now:

@@ -32,6 +32,9 @@
 #ifdef HAVE_STDINT_H_WITH_UINTMAX
 # include <stdint.h>
 #endif
+#if (defined (_MSC_VER) && _MSC_VER >= 1300)
+#define HAVE_INTTYPES_H_WITH_UINTMAX
+#endif 
 #ifdef HAVE_INTTYPES_H_WITH_UINTMAX
 # include <inttypes.h>
 #endif

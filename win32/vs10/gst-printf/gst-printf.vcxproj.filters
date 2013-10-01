@@ -15,42 +15,42 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\libs\gst\controller\gstinterpolationcontrolsource.c">
+    <ClCompile Include="..\..\..\gst\printf\asnprintf.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\libs\gst\controller\gstlfocontrolsource.c">
+    <ClCompile Include="..\..\..\gst\printf\printf.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\libs\gst\controller\gsttimedvaluecontrolsource.c">
+    <ClCompile Include="..\..\..\gst\printf\printf-args.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\libs\gst\controller\gsttriggercontrolsource.c">
+    <ClCompile Include="..\..\..\gst\printf\printf-extension.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\libs\gst\controller\gstargbcontrolbinding.c">
+    <ClCompile Include="..\..\..\gst\printf\printf-parse.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\libs\gst\controller\gstdirectcontrolbinding.c">
+    <ClCompile Include="..\..\..\gst\printf\vasnprintf.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\libs\gst\controller\gstinterpolationcontrolsource.h">
+    <ClInclude Include="..\..\..\gst\printf\gst-printf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\libs\gst\controller\gstlfocontrolsource.h">
+    <ClInclude Include="..\..\..\gst\printf\printf-args.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\libs\gst\controller\gsttimedvaluecontrolsource.h">
+    <ClInclude Include="..\..\..\gst\printf\printf-extension.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\libs\gst\controller\gsttriggercontrolsource.h">
+    <ClInclude Include="..\..\..\gst\printf\printf-parse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\libs\gst\controller\gstargbcontrolbinding.h">
+    <ClInclude Include="..\..\..\gst\printf\printf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\libs\gst\controller\gstdirectcontrolbinding.h">
+    <ClInclude Include="..\..\..\gst\printf\vasnprintf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

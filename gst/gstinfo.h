@@ -249,6 +249,9 @@ struct _GstDebugCategory {
  * printf format type used to debug GStreamer types.
  * This can only be used on types whose size is >= sizeof(gpointer).
  */
+#ifdef GST_PTR_FORMAT
+#undef GST_PTR_FORMAT
+#endif
 #define GST_PTR_FORMAT     "p\aA"
 
 /**
@@ -257,6 +260,9 @@ struct _GstDebugCategory {
  * printf format type used to debug GStreamer segments.
  * This can only be used on pointers to GstSegment structures.
  */
+#ifdef GST_SEGMENT_FORMAT
+#undef GST_SEGMENT_FORMAT
+#endif
 #define GST_SEGMENT_FORMAT "p\aB"
 
 typedef struct _GstDebugMessage GstDebugMessage;

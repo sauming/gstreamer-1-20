@@ -1,0 +1,188 @@
+This document discusses building gstreamer 1.20 (git://anongit.freedesktop.org/gstreamer/gstreamer only) in Visual Studio 2010.
+
+Part 1 - General Info.
+Part 2 - Changes required for modified gstreamer checkout.
+Part 3 - Additional changes required for gstreamer checkout from gstreamer Git origin.
+
+
+// ===============================================
+//
+// Part 1 - General Info.
+//
+// ===============================================
+
+=== Keys ===
+{root} = GStreamer Git source root folder.
+{packages} = Folder where NuGet puts the downloaded packages.  It's likely named "packages" in the same location as the solution file.
+
+=== GStreamer Source Files ===
+Get the source using Git (command line or GUI like SourceTree).
+
+Original gstreamer 
+git clone git://anongit.freedesktop.org/gstreamer/gstreamer
+
+Modified gstreamer 1.20 
+git clone  https://github.com/sauming/gstreamer-1-20.git
+
+This document has {root} referenced to c:\src\gstreamer\gstreamer.
+
+{root}\win32\vs10\gstreamer.sln is the Visual Studio 2010 solution.
+
+
+// ===============================================
+//
+// Part 2 - Changes required for modified gstreamer checkout.
+//
+// ===============================================
+
+=== Bison and Flex ===
+1. Download Flex/Bison from http://sourceforge.net/projects/winflexbison/ and copy content to {root}\win32\vs10\bin\flex folder.
+
+2. Add {root}\win32\vs10\bin\flex to PATH system variable.  This is for win_bison and win_flex commands.
+
+=== Common.props ===
+In text editor, modify Common.props property sheet as below.  win_bison and win_flex cannot handle GstProjectRoot if relative path.
+
+GstProjectRoot - C:\src\gstreamer\gstreamer\ (or other location gstreamer git repository is checked out)
+
+=== NuGet ===
+Open {root}\win32\vs10\gstreamer.sln in Visual Studio.  Select solution context menu item "Manage NuGet Packages for Solution..." to get glib and libxml2 packages.  NuGet will automatically get the dependency projects.
+
+=== glib-genmarshal.exe ===
+1. Copy {packages}\glib.2.36.2.11\tools\native\v100\Win32\Release\dynamic\glib-genmarshal.exe to {root}\win32\vs10\bin folder.
+
+2. Add {root}\win32\vs10\bin to PATH system variable.
+
+3. Restart Visual Studio.
+
+=== glibconfig.h ===
+In Visual Studio, building gstreamer project results error about glibconfig.h not found in gtype.h "#include <glibconfig.h>" statement.  Copy glibconfig.h from {packages}\glib.2.36.2.11\build\native\include\glib to {packages}\glib.2.36.2.11\build\native\include.
+
+=== gstreamer project - lib linking problem ===
+1. Copy lib files from {package}\glib.2.36.2.11\build\native\lib\v100\Win32\Release\dynamic to {root}\win32\vs10\lib.
+Notice that changing referenced package property does not work (i.e. In project properties dialog, select "All Configuration", navigate to Property Pages > Configuration Properties > Referenced Packages > glib > Linkage and set to Static).
+
+2. Copy libintl.lib from {package}\libintl.0.18.2.10\build\native\lib\v100\Win32\Debug\dynamic\cdecl to {root}\win32\vs10\lib.
+
+
+// =================================================================
+//
+// Part 3 - Additional changes required for gstreamer checkout from gstreamer Git origin.
+//
+// =================================================================
+
+=== Bison and Flex ===
+1. Open {root}\win32\vs10\generated\generated.vcxproj in text editor.  Change bison and flex commands to win_bison and win_flex as below.
+
+	<Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">win_bison -d -v -ppriv_gst_parse_yy $(GstProjectRoot)gst\parse\grammar.y -o $(GstProjectRoot)gst\parse\grammar.tab.c
+		  win_flex  -Ppriv_gst_parse_yy -o$(GstProjectRoot)gst\parse\lex.priv_gst_parse_yy.c $(GstProjectRoot)gst\parse\parse.l
+	</Command>
+		<Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">win_bison -d -v -ppriv_gst_parse_yy $(GstProjectRoot)gst\parse\grammar.y -o $(GstProjectRoot)gst\parse\grammar.tab.c
+	win_flex  -Ppriv_gst_parse_yy -o$(GstProjectRoot)gst\parse\lex.priv_gst_parse_yy.c $(GstProjectRoot)gst\parse\parse.l
+	</Command>
+
+=== Common.props ===
+In text editor, modify Common.props property sheet as below.  win_bison and win_flex cannot handle GstProjectRoot if relative path.
+
+GstPrefix - $(GstProjectRoot)$(PlatformName)\vs10\
+GstCommonDeps - glib-2.0.lib;gobject-2.0.lib;gthread-2.0.lib;gmodule-2.0.lib;Ws2_32.lib;libintl.lib
+GstVersion - 1.20
+
+//
+// gst-printf project
+//
+
+=== gst-printf project - create ===
+
+Create a new static library project “gst-printf” and set project properties General, VC++ Directories and C/C++ > General with “generated” project properties.
+
+In Property Manager, add {root}\win32\vs10\Common.props property sheet to gst-printf project.
+
+Add the following files to the project.
+	asnprintf.c 
+	printf-args.c 
+	printf-args.h 
+	printf-parse.c 
+	printf-parse.h 
+	vasnprintf.c 
+	vasnprintf.h 
+	printf.c 
+	printf.h 
+	printf-extension.c 
+	printf-extension.h 
+	gst-printf.h
+
+Re-run NuGet on gst-printf project to get glib and libxml2.
+
+Add gst-printf to gstreamer project reference.
+
+=== gst-printf project - intmax_t undeclared ===
+In {root}\gst\printf\printf-parse.c, add the following statements before "#ifdef HAVE_INTTYPES_H_WITH_UINTMAX".
+
+#if (defined (_MSC_VER) && _MSC_VER >= 1300)
+#define HAVE_INTTYPES_H_WITH_UINTMAX
+#endif 
+
+//
+// gstreamer project
+//
+
+=== gstreamer project - TARGET_CPU error ===
+Compiling {root}\gst\gstregistry.c results error related to TARGET_CPU.  In {root}\win32\common\config.h, after #undef TARGET_CPU, add the following statements.
+
+#if (defined (_MSC_VER) && _MSC_VER >= 1300)
+#define TARGET_CPU "i686"
+#endif
+
+=== gstreamer project - macro redefinition ===
+The following symbols have macro redefinition warnings C4005.
+
+'PREFIX' in {root}\win32\common\config.h
+'GST_PTR_FORMAT' and 'GST_SEGMENT_FORMAT' in {root}\gst\gstinfo.h
+
+Add #ifdef/#undef/#endif before corresponding #define.
+
+=== gstreamer project - add .h/.c files ===
+
+Comparing {root}\gst\Makefile.am and gstreamer VS project and add missing .h/.c files.  For 1.20, the following files are added.
+	gstallocator.h/.c
+	gstcapsfeatures.h/.c
+	gstcontext.h/.c
+	gsttoc.h/.c
+	gsttocsetter.h/.c
+
+=== gstreamer project - remove files from project ===
+
+Remove unavailable files from project.
+	gstindex.c and .h
+	gstindexfactory.c and .h
+
+//
+// base project
+//
+
+=== base project - add .h/.c files ===
+Comparing {root}\gst\base\Makefile.am and VS project and add missing .h/.c files.  For 1.20, the following files are added.
+	gstbaseparse.h/.c
+	gstdataqueue.h/.c
+
+=== base project - GST_FUNCTION undeclared identifier ===
+
+Compiling gstbaseparse.c results "GST_FUNCTION undeclared identifier" error in gstbaseparse.c, gstindex.c and gstmemindex.c.  Add GST_FUNCTION ifndef/define statements (in {root}\gst\gstinfo.h) to gstbaseparse.c and gstindex.c after #include statements.
+
+//
+// controller project
+//
+
+=== controller project - add .h/.c files ===
+Comparing {root}\gst\controller\Makefile.am and VS project and add missing .h/.c files.  For 1.20, the following files are added.
+	gstargbcontrolbinding.h/.c
+	gstdirectcontrolbinding.h/.c
+
+//
+// gstcoreelements project
+//
+
+=== gstcoreelements - remove .h/.c files ===
+Comparing {root}\gst\base\Makefile.am and VS project and remove unnecessary .h/.c files.  For 1.20, the following files are removed.
+	gstdataqueue.h/.c

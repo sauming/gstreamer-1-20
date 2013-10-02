@@ -36,9 +36,7 @@ This document has {root} referenced to c:\src\gstreamer\gstreamer.
 // ===============================================
 
 === Bison and Flex ===
-1. Download Flex/Bison from http://sourceforge.net/projects/winflexbison/ and copy content to {root}\win32\vs10\bin\flex folder.
-
-2. Add {root}\win32\vs10\bin\flex to PATH system variable.  This is for win_bison and win_flex commands.
+Download Flex/Bison from http://sourceforge.net/projects/winflexbison/ and copy content to {root}\win32\vs10\bin\flex folder.
 
 === Common.props ===
 In text editor, modify Common.props property sheet as below.  win_bison and win_flex cannot handle GstProjectRoot if relative path.
